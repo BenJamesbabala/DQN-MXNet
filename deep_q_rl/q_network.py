@@ -59,8 +59,7 @@ class DeepQLearner:
 
         input_shape = (batch_size, num_frames, input_width, input_height)
         self.loss_exe, self.policy_exe, self.target_exe = self.build_graphs(input_shape, ctx, num_actions)
-        self.lr_scheduler = mx.lr_scheduler.FactorScheduler(step=50000, factor=0.96)
-        self.optimizer = mx.optimizer.create(name='RMSProp', learning_rate=self.lr, gamma2=self.momentum)
+        self.optimizer = mx.optimizer.create(name='RMSProp', learning_rate=self.lr, gamma2=self.momentum, clip_gradient=self.clip_delta)
         self.updater = mx.optimizer.get_updater(self.optimizer)
         initializer = DQNInitializer()
         self.init_exe(self.loss_exe, initializer)
