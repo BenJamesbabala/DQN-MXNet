@@ -7,8 +7,8 @@ Author: Nathan Sprague
 """
 
 import os
-import cPickle
 import time
+import mxnet as mx
 import logging
 
 import numpy as np
@@ -276,10 +276,8 @@ class NeuralAgent(object):
 
 
     def finish_epoch(self, epoch):
-        net_file = open(self.exp_dir + '/network_file_' + str(epoch) + \
-                        '.pkl', 'w')
-        cPickle.dump(self.network, net_file, -1)
-        net_file.close()
+        net_file = self.exp_dir + '/network_file_' + str(epoch) + '.params'
+	mx.nd.save(net_file, self.network.policy_exe.arg_dict) 
 
     def start_testing(self):
         self.testing = True
