@@ -89,6 +89,11 @@ class DeepQLearner:
             if k.endswith('weight') or k.endswith('bias'):
                 updater(index=ind, grad=executor.grad_dict[k], weight=executor.arg_dict[k])
 
+    def load_weights(self, params):
+        self.policy_exe.copy_params_from(params)
+        self.copy_weights(self.policy_exe, self.loss_exe)
+        self.copy_weights(self.policy_exe, self.policy_exe)
+
     @staticmethod
     def build_nature_network(num_actions=20):
         data = mx.sym.Variable("data")
