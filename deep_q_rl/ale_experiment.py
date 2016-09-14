@@ -68,12 +68,12 @@ class ALEExperiment(object):
         """
         self.terminal_lol = False # Make sure each epoch starts with a reset.
         steps_left = num_steps
+	reward_sum = 0
         while steps_left > 0:
             prefix = "testing" if testing else "training"
             logging.info(prefix + " epoch: " + str(epoch) + " steps_left: " +
-                         str(steps_left))
-            _, num_steps = self.run_episode(steps_left, testing)
-
+                         str(steps_left) + " reward_sum: " + str(reward_sum))
+            _, num_steps, reward_sum = self.run_episode(steps_left, testing)
             steps_left -= num_steps
 
 
@@ -138,8 +138,10 @@ class ALEExperiment(object):
 
         action = self.agent.start_episode(self.get_observation())
         num_steps = 0
+	reward_sum = 0
         while True:
             reward = self._step(self.min_action_set[action])
+	    reward_sum += reward
             self.terminal_lol = (self.death_ends_episode and not testing and
                                  self.ale.lives() < start_lives)
             terminal = self.ale.game_over() or self.terminal_lol
@@ -150,7 +152,7 @@ class ALEExperiment(object):
                 break
 
             action = self.agent.step(reward, self.get_observation())
-        return terminal, num_steps
+        return terminal, num_steps, reward_sum
 
 
     def get_observation(self):
