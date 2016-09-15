@@ -10,10 +10,10 @@ Check `q_network.py` for the detailed implementation.
 It takes one night to finish 60 epoches. The training is done on GTX980 GPU.
 
 **Our Implementation**
-![Ours](/assets/test.jpg)
+![Ours](./assets/test.jpg)
 
 **Theano-based Implementation**
-![test2](/assets/test2.jpg)
+![test2](./assets/test2.jpg)
 # Issues
 * Our performance variance is too large
 * Add `clip_gradient=1.0` will degrade the performance, a better
