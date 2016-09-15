@@ -16,10 +16,10 @@ It takes one night to finish 60 epoches. The training is done on GTX980 GPU.
 ![test2](./assets/test2.jpg)
 # Issues
 * Our performance variance is too large
-* Add `clip_gradient=1.0` will degrade the performance, a better
+* Add `clip_gradient=1.0` will degrade the performance, a better value needs to be explored, currently there is no gradient clip
 * Modified RMSProp optimier according to nature paper needs to be implemented, see theano based implementation in `updates.py`
 * Our Q Values and Loss does not agree with theano based implementation
-
+* Currently, `policy_executor` and `loss_executor` use different `NDArray` weights, and needs to copy weights for every batch training. Consider how to share weights with this two executors.
 
 # Dependencies
 
