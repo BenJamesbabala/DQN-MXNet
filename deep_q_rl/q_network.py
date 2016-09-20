@@ -59,7 +59,7 @@ class DeepQLearner:
 
         input_shape = (batch_size, num_frames, input_width, input_height)
         self.loss_exe, self.policy_exe, self.target_exe = self.build_graphs(input_shape, ctx, num_actions)
-        self.optimizer = mx.optimizer.create(name='rmsprop', learning_rate=self.lr, gamma2=self.momentum, clip_gradient=None, rescale_grad=1.0)
+        self.optimizer = mx.optimizer.create(name='rmsprop', learning_rate=self.lr, gamma2=self.momentum, clip_gradient=self.clip_delta)
         self.updater = mx.optimizer.get_updater(self.optimizer)
         initializer = DQNInitializer()
         self.init_exe(self.loss_exe, initializer)
