@@ -68,7 +68,7 @@ class ALEExperiment(object):
         """
         self.terminal_lol = False # Make sure each epoch starts with a reset.
         steps_left = num_steps
-	reward_sum = 0
+        reward_sum = 0
         while steps_left > 0:
             prefix = "testing" if testing else "training"
             logging.info(prefix + " epoch: " + str(epoch) + " steps_left: " +

@@ -199,7 +199,6 @@ class NeuralAgent(object):
                                              observation,
                                              np.clip(reward, -1, 1))
 
-
         self.last_action = action
         self.last_img = observation
 
